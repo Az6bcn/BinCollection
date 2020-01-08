@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="NextBinCollection.Views.BinCollectionRequestPage">
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Text="Save" Clicked="Save_Clicked" />-->
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Spacing="20" Padding="15">
+        <Picker x:Name="CouncilListPicker"
+                Title="Please select your council"
+                FontSize="Small"
+                ItemsSource="{Binding ManchesterCouncils}"
+                ItemDisplayBinding="{Binding CouncilName}"
+                SelectedIndexChanged="CouncilListPicker_SelectedIndexChanged">
+        </Picker>
+
+
+
+        <Entry x:Name="PostCodeEntry"
+               Placeholder="Post Code"
+               FontSize="Small"
+               Text="{Binding PostCodeText}"
+               TextChanged="PostCodeEntryChanged"/>
+
+
+        <Picker x:Name="PostCodeAddressPicker"
+                FontSize="Medium"
+                Title="Select Address"
+                IsVisible="false"
+                SelectedIndexChanged="PostCodeAddressPicker_SelectedIndexChanged"
+                ItemsSource="{Binding UsersPostcodeAddresses}"/>
+
+        <Button x:Name="SendPostCodeBtn"
+                Text="Send"
+                BackgroundColor="Green"
+                TextColor="White"
+                FontSize="Large"
+                IsVisible="true"
+                Clicked="SendPostCodeBtn_Clicked"/>
+
+        <ListView IsPullToRefreshEnabled="False" x:Name="ResultListView" ItemsSource="{Binding UsersPostcodeAddressesBinCollectionDays}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell >
+                        <!--StackLayout to arrange each item in the list-->
+                        <StackLayout Padding="10" BackgroundColor="{Binding Color}">
+                            <!--Each field in the item is displayed in a label-->
+                            <Label Text="{Binding BinType}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                            <Label LineBreakMode="NoWrap">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Collection day: " />
+                                        <Span Text="{Binding CollectionDay}" FontSize="13" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                             <Label LineBreakMode="NoWrap">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Next Collection day: " />
+                                        <Span Text="{Binding NextCollection}" FontSize="13" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+     
+
+    </StackLayout>
+</ContentPage>
